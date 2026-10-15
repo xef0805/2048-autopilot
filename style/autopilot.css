@@ -1,0 +1,19 @@
+.autopilot {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 6px;
+  background: #eee4da;
+  font-size: 15px;
+}
+.autopilot h2 { font-size: 22px; margin: 0 0 10px; }
+.autopilot p { margin: 10px 0; line-height: 1.6; }
+.autopilot button {
+  padding: 10px;
+  margin: 4px 4px 0 0;
+  border: 0;
+  border-radius: 3px;
+  background: #8f7a66;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}

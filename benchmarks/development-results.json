@@ -1,0 +1,172 @@
+{
+  "rules": "Original 4x4 game; random spawn: 90% 2, 10% 4; seeded LCG; games continue after 2048 until no legal move",
+  "previous_version": {
+    "largest_tile": 4096,
+    "mean_score": 41327.2,
+    "games": [
+      {
+        "seed": 1,
+        "score": 36600,
+        "maxTile": 2048,
+        "steps": 1897
+      },
+      {
+        "seed": 2,
+        "score": 61008,
+        "maxTile": 4096,
+        "steps": 2834
+      },
+      {
+        "seed": 3,
+        "score": 6508,
+        "maxTile": 512,
+        "steps": 449
+      },
+      {
+        "seed": 4,
+        "score": 36684,
+        "maxTile": 2048,
+        "steps": 1901
+      },
+      {
+        "seed": 5,
+        "score": 57832,
+        "maxTile": 4096,
+        "steps": 2631
+      },
+      {
+        "seed": 6,
+        "score": 71264,
+        "maxTile": 4096,
+        "steps": 3232
+      },
+      {
+        "seed": 7,
+        "score": 36568,
+        "maxTile": 2048,
+        "steps": 1908
+      },
+      {
+        "seed": 8,
+        "score": 32916,
+        "maxTile": 2048,
+        "steps": 1696
+      },
+      {
+        "seed": 9,
+        "score": 33840,
+        "maxTile": 2048,
+        "steps": 1725
+      },
+      {
+        "seed": 10,
+        "score": 17096,
+        "maxTile": 1024,
+        "steps": 1020
+      },
+      {
+        "seed": 11,
+        "score": 32672,
+        "maxTile": 2048,
+        "steps": 1678
+      },
+      {
+        "seed": 12,
+        "score": 37076,
+        "maxTile": 2048,
+        "steps": 1950
+      },
+      {
+        "seed": 13,
+        "score": 75492,
+        "maxTile": 4096,
+        "steps": 3427
+      },
+      {
+        "seed": 14,
+        "score": 36376,
+        "maxTile": 2048,
+        "steps": 1877
+      },
+      {
+        "seed": 15,
+        "score": 55196,
+        "maxTile": 4096,
+        "steps": 2514
+      },
+      {
+        "seed": 16,
+        "score": 59032,
+        "maxTile": 4096,
+        "steps": 2732
+      },
+      {
+        "seed": 17,
+        "score": 34880,
+        "maxTile": 2048,
+        "steps": 1799
+      },
+      {
+        "seed": 18,
+        "score": 27668,
+        "maxTile": 2048,
+        "steps": 1455
+      },
+      {
+        "seed": 19,
+        "score": 27824,
+        "maxTile": 2048,
+        "steps": 1474
+      },
+      {
+        "seed": 20,
+        "score": 50012,
+        "maxTile": 4096,
+        "steps": 2261
+      }
+    ],
+    "highest_score": 75492,
+    "completed_games": 20
+  },
+  "row_evaluation_three_moves": {
+    "highest_score": 99196,
+    "games": [
+      {
+        "seed": 1,
+        "score": 80620,
+        "maxTile": 4096,
+        "steps": 3749
+      },
+      {
+        "seed": 2,
+        "score": 99196,
+        "maxTile": 8192,
+        "steps": 3914
+      },
+      {
+        "seed": 3,
+        "score": 50452,
+        "maxTile": 4096,
+        "steps": 2304
+      }
+    ],
+    "largest_tile": 8192,
+    "completed_games": 3
+  },
+  "row_evaluation_four_moves": {
+    "highest_score": 171768,
+    "games": [
+      {
+        "seed": 1,
+        "score": 171768,
+        "maxTile": 8192,
+        "steps": 7143
+      }
+    ],
+    "largest_tile": 8192,
+    "completed_games": 1
+  },
+  "limitation": "Different sample sizes; this demonstrates a higher observed score, not a stable win rate. No speed comparison: the deeper run included diagnostic pauses.",
+  "recorded_before_review": true,
+  "recorded_solver_sha256": "E45F1FCF985010C79FC9C54D3D2330C3215839BC31EE7FAA9A7B34B0B6211C52"
+}

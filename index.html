@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <title>2048</title>
+  <title>2048 自动冲分</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link href="style/autopilot.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <div class="container">
@@ -27,16 +24,16 @@
     </div>
 
     <div class="above-game">
-      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <a class="restart-button">New Game</a>
+      <p class="game-intro">让程序自动挑战高分，也可以<strong>亲自上场！</strong></p>
+      <a class="restart-button">新开一局</a>
     </div>
 
     <div class="game-container">
       <div class="game-message">
         <p></p>
         <div class="lower">
-	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
+	        <a class="keep-playing-button">继续挑战</a>
+          <a class="retry-button">再来一局</a>
         </div>
       </div>
 
@@ -72,28 +69,29 @@
       </div>
     </div>
 
+    <section class="autopilot" aria-label="自动冲分">
+      <h2>自动冲分</h2>
+      <p>得分优先：空位多时预判两次移动，剩 3～5 个空位时预判三次，剩 0～2 个空位时预判四次。综合比较空位、数字排列和合并机会；拥挤时思考会更久。</p>
+      <button id="auto-step" type="button">自动走一步</button>
+      <button id="auto-toggle" type="button">连续自动玩</button>
+      <p id="auto-status" role="status">等待开始。按概率试算新方块，不预知实际出块。</p>
+      <p id="auto-stats"></p>
+    </section>
+
     <p class="game-explanation">
-      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+      <strong class="important">玩法：</strong>用<strong>方向键</strong>或在棋盘上滑动来移动方块，相同数字相遇时会合并。点击“自动走一步”观察策略，或点击“连续自动玩”挑战高分；再次点击可暂停。
     </p>
     <hr>
-    <p>
-    <strong class="important">Note:</strong> This site is the official version of 2048. You can play it on your phone via <a href="http://git.io/2048">http://git.io/2048.</a> All other apps or sites are derivatives or fakes, and should be used with caution.
-    </p>
-    <hr>
-    <p>
-    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
-    </p>
+    <p>致敬原版 2048 作者 <a href="https://github.com/gabrielecirulli/2048" target="_blank" rel="noopener noreferrer">Gabriele Cirulli</a>。</p>
   </div>
 
-  <script src="js/bind_polyfill.js"></script>
-  <script src="js/classlist_polyfill.js"></script>
-  <script src="js/animframe_polyfill.js"></script>
   <script src="js/keyboard_input_manager.js"></script>
   <script src="js/html_actuator.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
+  <script src="js/autopilot.js"></script>
   <script src="js/application.js"></script>
 </body>
 </html>

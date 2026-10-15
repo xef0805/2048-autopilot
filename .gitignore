@@ -1,1 +1,4 @@
-.sass-cache/
+.vscode/
+.DS_Store
+Thumbs.db
+benchmark-results.json

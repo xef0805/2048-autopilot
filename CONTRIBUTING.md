@@ -1,33 +1,12 @@
-# Contributing
-Changes and improvements are more than welcome! Feel free to fork and open a pull request.
+# 开发说明
 
-Please follow the house rules to have a bigger chance of your contribution being merged.
+本项目是直接运行的静态网页，不需要构建工具。
 
-## House rules
+1. 在分支中修改，每次围绕一个可验证的目标。
+2. JavaScript 保持现有的两空格缩进；页面和提示使用中文。
+3. 样式直接修改 `style/main.css` 或 `style/autopilot.css`，不再维护 SCSS/Ruby 编译链。
+4. 不改变 4×4 棋盘、合并计分、2/4 出块概率等基础规则来提高成绩。
+5. 运行 `node --test`，并在浏览器检查单步、暂停继续、新局、手动接管和手机滑动。
+6. 搜索或评价方法有变化时，用相同随机种子跑完整对局，记录样本量；不要把进行中分数或单局成绩表述成稳定胜率。
 
-### How to make changes
- - To make changes, create a new branch based on `master` (do not create one from `gh-pages` unless strictly necessary) and make them there, then create a Pull Request to master.  
- `gh-pages` is different from master in that it contains sharing features, analytics and other things that have no direct bearing with the game. `master` is the "pure" version of the game.
- - If you want to modify the CSS, please edit the SCSS files present in `style/`: `main.scss` and others. Don't edit the `main.css`, because it's supposed to be generated.  
- In order to compile your SCSS modifications, you need to use the `sass` gem (install it by running `gem install sass` once Ruby is installed).  
- To run SASS, simply use the following command:  
- `sass --unix-newlines --watch style/main.scss`  
- SASS will automatically recompile your css when changed.
- - `Rakefile` contains some tasks that help during development. Feel free to add useful tasks if needed.
- - Please use 2-space indentation when editing the JavaScript. A `.jshintrc` file is present, which will help your code to follow the guidelines if you install and run `jshint`.
- - Please test your modification thoroughly before submitting your Pull Request.
-
-### Changes that might not be accepted
-We have to be conservative with the core game. This means that some modifications won't be merged, or will have to be evaluated carefully before being merged:
-
- - Undo/redo features
- - Save/reload features
- - Changes to how the tiles look or their contents
- - Changes to the layout
- - Changes to the grid size
-
-### Changes that are welcome
- - Bug fixes
- - Compatibility improvements
- - "Under the hood" enhancements
- - Small changes that don't have an impact on the core gameplay
+不要提交 VS Code 个人设置、临时脚本、访问凭据或本机路径。保留原作者许可和第三方算法说明。

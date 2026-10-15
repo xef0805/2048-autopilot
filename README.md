@@ -1,38 +1,56 @@
-# 2048
-A small clone of [1024](https://play.google.com/store/apps/details?id=com.veewo.a1024), based on [Saming's 2048](http://saming.fr/p/2048/) (also a clone). 2048 was indirectly inspired by [Threes](https://asherv.com/threes/).
+# 2048 自动冲分
 
-Made just for fun. [Play it here!](http://gabrielecirulli.github.io/2048/)
+基于原版 2048 的中文自动玩家。可以逐步观察程序选择方向，也可以让它连续挑战高分。纯 HTML、CSS、JavaScript，游戏页面不依赖网络服务或付费 API。
 
-The official app can also be found on the [Play Store](https://play.google.com/store/apps/details?id=com.gabrielecirulli.app2048) and [App Store!](https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805)
+## 运行
 
-### Contributions
+下载并解压项目，使用现代版 Edge、Chrome、Firefox 或 Safari 打开 `index.html` 即可。不需要安装依赖、Ruby 或编译样式。
 
-[Anna Harren](https://github.com/iirelu/) and [sigod](https://github.com/sigod) are maintainers for this repository.
+- **新开一局**：重置棋盘。
+- **自动走一步**：暂停连续运行，然后执行一次自动移动。
+- **连续自动玩 / 暂停**：切换自动运行；深搜索期间，暂停会在当前步计算完成后生效。
+- **方向键 / WASD / 棋盘滑动**：手动移动，同时暂停自动玩家。
+- 界面显示当前分数、浏览器历史最高分、最大方块和本次页面加载以来的自动步数。新开一局后自动步数归零。
 
-Other notable contributors:
+原版会保存当前棋盘和历史最高分；自动运行状态不跨刷新恢复。自动玩家达到 2048 后会继续挑战，直至没有合法移动。
 
- - [TimPetricola](https://github.com/TimPetricola) added best score storage
- - [chrisprice](https://github.com/chrisprice) added custom code for swipe handling on mobile
- - [marcingajda](https://github.com/marcingajda) made swipes work on Windows Phone
- - [mgarciaisaia](https://github.com/mgarciaisaia) added support for Android 2.3
+## 自动玩家如何选方向
 
-Many thanks to [rayhaanj](https://github.com/rayhaanj), [Mechazawa](https://github.com/Mechazawa), [grant](https://github.com/grant), [remram44](https://github.com/remram44) and [ghoullier](https://github.com/ghoullier) for the many other good contributions.
+1. 从游戏内存读取棋盘，复制后试走四个方向，排除无效移动。
+2. 按原规则枚举每个空位出现 2（90%）或 4（10%）的情况。
+3. 使用 Expectimax 比较后续移动的期望评价，综合空位、有序排列和合并机会。
+4. 空位至少 6 个时预判 2 次移动；剩 3～5 个时预判 3 次；剩 0～2 个时预判 4 次。次数包含即将执行的本次移动。
 
-### Screenshot
+真实棋盘的移动、合并、计分、随机出块仍由原版引擎执行。试算不会预知实际出块，也不会消耗真实随机数。得分优先，拥挤局面的计算可能较久，期间页面可能短暂等待。
 
-<p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1175750/8614312/280e5dc2-26f1-11e5-9f1f-5891c3ca8b26.png" alt="Screenshot"/>
-</p>
+## 验证与跑分
 
-That screenshot is fake, by the way. I never reached 2048 :smile:
+玩游戏不需要 Node.js。只有运行以下开发检查时才需要 Node.js（18 或更高版本），无需安装 npm 包。
 
-## Contributing
-Changes and improvements are more than welcome! Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into `master`! If you can, please make sure the game fully works before sending the PR, as that will help speed up the process.
+```text
+node --test
+node scripts/benchmark.cjs 1 1
+```
 
-You can find the same information in the [contributing guide.](https://github.com/gabrielecirulli/2048/blob/master/CONTRIBUTING.md)
+第二条命令从种子 1 开始跑 1 局。可以将第一个数字改成局数，第二个改成起始种子；深搜索完整对局可能需要数分钟。每完成一局，结果写入项目根目录 `benchmark-results.json`，包括分数、最大方块、步数、平均数、中位数和达到 8192 的局数。未完成对局不会计入结果。
 
-## License
-2048 is licensed under the [MIT license.](https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt)
+开发阶段曾完成 **171,768 分、最大方块 8192** 的单局测试。历史数据见 [开发阶段跑分记录](benchmarks/development-results.json)。这是审查前版本的记录，样本量不同，本轮还修正了评分边界；它不是当前提交的保证分数或稳定胜率。比较后续改动，请使用相同的一组种子重新运行脚本。
 
-## Donations
-I made this in my spare time, and it's hosted on GitHub (which means I don't have any hosting costs), but if you enjoyed the game and feel like buying me coffee, you can donate at my BTC address: `1Ec6onfsQmoP9kkL3zkpB6c5sA4PVcXU2i`. Thank you very much!
+## 文件
+
+| 位置 | 用途 |
+|---|---|
+| `index.html` | 中文页面与操作入口 |
+| `js/autopilot.js` | 试走、局面评价、概率搜索与自动运行控制 |
+| `js/game_manager.js`、`grid.js`、`tile.js` | 原版规则和棋盘数据 |
+| `js/keyboard_input_manager.js` | 键盘、触屏和按钮输入 |
+| `js/html_actuator.js` | 棋盘、分数与中文胜负提示 |
+| `js/local_storage_manager.js` | 原版浏览器存档 |
+| `style/`、`meta/`、`favicon.ico` | 页面样式、字体和图标 |
+| `tests/`、`scripts/` | 自动检查与无界面跑分 |
+
+相对原项目的改动和本轮审查结果见 [CHANGES.md](CHANGES.md)。开发约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 致谢与许可
+
+致敬原版 2048 作者 [Gabriele Cirulli](https://github.com/gabrielecirulli/2048)，保留原始 [MIT 许可](LICENSE.txt)。行列评价参考 [nneonneo/2048-ai](https://github.com/nneonneo/2048-ai)，其许可与说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。

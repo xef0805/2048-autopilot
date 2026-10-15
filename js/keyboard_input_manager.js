@@ -1,17 +1,6 @@
 function KeyboardInputManager() {
   this.events = {};
 
-  if (window.navigator.msPointerEnabled) {
-    //Internet Explorer 10 style
-    this.eventTouchstart    = "MSPointerDown";
-    this.eventTouchmove     = "MSPointerMove";
-    this.eventTouchend      = "MSPointerUp";
-  } else {
-    this.eventTouchstart    = "touchstart";
-    this.eventTouchmove     = "touchmove";
-    this.eventTouchend      = "touchend";
-  }
-
   this.listen();
 }
 
@@ -77,42 +66,30 @@ KeyboardInputManager.prototype.listen = function () {
   var touchStartClientX, touchStartClientY;
   var gameContainer = document.getElementsByClassName("game-container")[0];
 
-  gameContainer.addEventListener(this.eventTouchstart, function (event) {
-    if ((!window.navigator.msPointerEnabled && event.touches.length > 1) ||
-        event.targetTouches.length > 1) {
+  gameContainer.addEventListener("touchstart", function (event) {
+    if (event.touches.length > 1) {
       return; // Ignore if touching with more than 1 finger
     }
 
-    if (window.navigator.msPointerEnabled) {
-      touchStartClientX = event.pageX;
-      touchStartClientY = event.pageY;
-    } else {
-      touchStartClientX = event.touches[0].clientX;
-      touchStartClientY = event.touches[0].clientY;
-    }
+    touchStartClientX = event.touches[0].clientX;
+    touchStartClientY = event.touches[0].clientY;
 
     event.preventDefault();
   });
 
-  gameContainer.addEventListener(this.eventTouchmove, function (event) {
+  gameContainer.addEventListener("touchmove", function (event) {
     event.preventDefault();
   });
 
-  gameContainer.addEventListener(this.eventTouchend, function (event) {
-    if ((!window.navigator.msPointerEnabled && event.touches.length > 0) ||
-        event.targetTouches.length > 0) {
+  gameContainer.addEventListener("touchend", function (event) {
+    if (event.touches.length > 0) {
       return; // Ignore if still touching with one or more fingers
     }
 
     var touchEndClientX, touchEndClientY;
 
-    if (window.navigator.msPointerEnabled) {
-      touchEndClientX = event.pageX;
-      touchEndClientY = event.pageY;
-    } else {
-      touchEndClientX = event.changedTouches[0].clientX;
-      touchEndClientY = event.changedTouches[0].clientY;
-    }
+    touchEndClientX = event.changedTouches[0].clientX;
+    touchEndClientY = event.changedTouches[0].clientY;
 
     var dx = touchEndClientX - touchStartClientX;
     var absDx = Math.abs(dx);
@@ -140,5 +117,4 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
   button.addEventListener("click", fn.bind(this));
-  button.addEventListener(this.eventTouchend, fn.bind(this));
 };
